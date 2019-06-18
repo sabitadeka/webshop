@@ -1,0 +1,163 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb" style="    display: grid;
+  grid-template-columns: 2fr 1fr;">
+    <li class="breadcrumb-item active" aria-current="page">
+      <h3>The Light Saber Shop <span>
+          <button *ngIf="!isJediMaster" (click)="toggleSignIn = !toggleSignIn;" type="button" class="btn btn-link">
+            <span style="color:darkgoldenrod">Jedi Master? &nbsp;</span>Check Orders</button>
+          <button *ngIf="isJediMaster" (click)="isJediMaster = false;" type="button"
+            class="btn btn-link">Logout</button>
+        </span>
+      </h3>
+    </li>
+    <form *ngIf="toggleSignIn && !isJediMaster" class="navbar-form navbar-right" role="search" style="display: grid;
+    grid-template-columns: 1fr 1fr 1fr;">
+      <div class="form-group">
+        <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="jediUser.username">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password"
+          [(ngModel)]="jediUser.password">
+      </div>
+      <div class="form-group">
+        <button (click)="submit(jediUser)" type="submit" class="btn btn-primary">Sign In</button>
+      </div>
+    </form>
+  </ol>
+</nav>
+<div *ngIf="!isJediMaster" style="    display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;grid-column-gap: 3rem;">
+  <div *ngFor="let sab of sabers" class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{sab.name}}</h5>
+      <p class="card-text">{{sab.olor}}</p>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Available</label>
+        <div class="col-sm-6">
+          <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext" value="{{sab.available}}">
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3>Crystal</h3>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-7 col-form-label">Name</label>
+            <div class="col-sm-5">
+              <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+                value="{{sab.crystal.name}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-7 col-form-label">Color</label>
+            <div class="col-sm-5">
+              <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+                value="{{sab.crystal.color}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-7 col-form-label">Planet</label>
+            <div class="col-sm-5">
+              <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+                value="{{sab.crystal.planet}}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <button type="button" (click)="knowmore(sab)" class="btn btn-block btn-success">Know More</button>
+      <button type="button" (click)="order(sab)" class="btn btn-block btn-success">Order</button>
+    </div>
+  </div>
+  <div *ngIf="planet">
+    <div class="card">
+      <div class="card-body">
+        <h3>Name: {{planet.name}}</h3>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-7 col-form-label">Climate</label>
+          <div class="col-sm-5">
+            <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+              value="{{planet.climate}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-7 col-form-label">Diameter</label>
+          <div class="col-sm-5">
+            <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+              value="{{planet.diameter}}">
+          </div>
+
+        </div>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-7 col-form-label">Gravity</label>
+          <div class="col-sm-5">
+            <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+              value="{{planet.gravity}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-7 col-form-label">Terrain</label>
+          <div class="col-sm-5">
+            <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+              value="{{planet.terrain}}">
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-7 col-form-label">Population</label>
+            <div class="col-sm-5">
+              <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+                value="{{planet.population}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-7 col-form-label">Orbital Period</label>
+            <div class="col-sm-5">
+              <input type="text" style="color: #607D8B;" readonly class="form-control-plaintext"
+                value="{{planet.orbital_period}}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3>Padawan</h3>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Age</label>
+        <input type="number" class="form-control" min="0" aria-describedby="emailHelp" placeholder="Enter Age"
+          [(ngModel)]="padwanAge">
+        <small id="emailHelp" class="form-text text-muted">Supply padawan age and get force needed to
+          use a saber</small>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Power
+              &nbsp;</label><span>{{padwanAge <= 18 ? 10 * padwanAge : "UNLIMITED" }}&nbsp; F</span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Is Jedi ?
+              &nbsp;</label><span>{{10 * padwanAge > 93.2 ? "Yes, I am Jedi" : "Not Yet" }}&nbsp; </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table *ngIf="isJediMaster" class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Saber Name</th>
+      <th scope="col">No. of Order</th>
+      <th scope="col">Availabile Sabers</th>
+    </tr>
+  </thead>
+  <tbody class="events_container">
+    <tr *ngFor="let sab of sabers">
+      <th scope="col">{{sab.name}}</th>
+      <th scope="col">{{sab.order ? sab.order : 0}}</th>
+      <th scope="col"><input type="number" class="form-control" min="sab.available" aria-describedby="emailHelp"
+          placeholder="Availability" [(ngModel)]="sab.available"></th>
+    </tr>
+  </tbody>
+</table>
